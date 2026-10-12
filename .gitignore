@@ -1,0 +1,15 @@
+# Local configuration and secrets
+/src/config.php
+.env
+.env.*
+!.env.example
+
+# Generated dependencies
+/vendor/
+
+# Logs and local editor/OS files
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
