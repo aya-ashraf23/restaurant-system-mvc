@@ -12,4 +12,9 @@ class Menu extends Model{
         $this->query($query);
         return $this->resultSet();
     }
+    public function selectMenuById($id){
+        $query = "SELECT * FROM $this->tableName WHERE id = $id";
+        $this->query($query);
+        return $this->single();
+    }
 }

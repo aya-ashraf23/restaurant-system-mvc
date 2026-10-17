@@ -44,20 +44,22 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            <?php $i = 1;
+                            foreach ($data['categoryList'] as $category) { ?>
                                 <tr>
-                                    <td class="text-center"></td>
-                                    <td></td>
-                                    <td class=""></td>
+                                    <td class="text-center"><?= $i++; ?></td>
+                                    <td><?= $category->date_created ?></td>
+                                    <td class=""><?= $category->name ?></td>
                                     <td class="">
-                                        <p class="mb-0 truncate-1"></p>
+                                        <p class="mb-0 truncate-1"><?= $category->description ?></p>
                                     </td>
+                                    
                                     <td class="text-center">
-                                      
-                                            <span class="badge badge-success px-3 rounded-pill">Active</span>
-                                     
-                                            <span class="badge badge-danger px-3 rounded-pill">Inactive</span>
-                                 
+                                        <?php if($category->status == 1){ ?>
+                                        <span class="badge badge-success px-3 rounded-pill">Active</span>
+                                        <?php }else{ ?>
+                                        <span class="badge badge-danger px-3 rounded-pill">Inactive</span>
+                                        <?php } ?>
                                     </td>
                                     <td align="center">
                                         <button type="button" class="btn btn-flat p-1 btn-default btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown">
@@ -65,14 +67,15 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu" role="menu">
-                                            <a class="dropdown-item view-data" href="javascript:void(0)" data-id=""><span class="fa fa-eye text-dark"></span> View</a>
+                                            <a class="dropdown-item view-data" href="javascript:void(0)" data-id="<?= $category->id ?>"><span class="fa fa-eye text-dark"></span> View</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item edit-data" href="javascript:void(0)" data-id=""><span class="fa fa-edit text-primary"></span> Edit</a>
+                                            <a class="dropdown-item edit-data" href="javascript:void(0)" data-id="<?= $category->id ?>"><span class="fa fa-edit text-primary"></span> Edit</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item delete_data" href="javascript:void(0)" data-id=""><span class="fa fa-trash text-danger"></span> Delete</a>
+                                            <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?= $category->id ?>"><span class="fa fa-trash text-danger"></span> Delete</a>
                                         </div>
                                     </td>
                                 </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

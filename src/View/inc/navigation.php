@@ -70,7 +70,7 @@
                       </a>
                     </li> 
                     <li class="nav-item dropdown">
-                      <a href="./?page=menus" class="nav-link nav-menus">
+                      <a href="./index.php?menu/allMenus" class="nav-link nav-menus">
                         <i class="nav-icon fas fa-hamburger"></i>
                         <p>
                           Menu List
