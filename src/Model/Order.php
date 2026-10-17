@@ -110,4 +110,18 @@ class Order extends Model{
         return substr($code , -5);
     }
 
+    public function getOrderDetails($id){
+        $query = "SELECT * FROM $this->tableName WHERE id = $id";
+        $this->query($query);
+        return $this->single(); 
+    }
+    public function getOrderItemDetails($id){
+        $query = "SELECT oi.*, concat(ml.code,'-', ml.name) as item
+                  FROM order_items oi
+                  JOIN menu_list ml ON oi.menu_id = ml.id
+                  WHERE oi.order_id = $id";
+        $this->query($query);
+        return $this->single(); 
+    }
+
 }

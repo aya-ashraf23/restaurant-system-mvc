@@ -29,6 +29,6 @@ class Login {
     }
     public function createUserSession($user){
         Session::setSession('user_id' , $user->id);
-        Session::setSession('user_name' , $user->name);
+        Session::setSession('user_name' , $user->username);
     }
 }
