@@ -124,4 +124,20 @@ class Order extends Model{
         return $this->single(); 
     }
 
+    public function getAllOrders(){
+        $query = "SELECT * FROM $this->tableName";
+        $this->query($query);
+        return $this->resultSet(); 
+    }
+    public function getOrdersById($userId){
+        $query = "SELECT * FROM $this->tableName where user_id = $userId";
+        $this->query($query);
+        return $this->resultSet(); 
+    }
+    public function deleteOrder($id){
+        $query = "DELETE FROM $this->tableName WHERE id = $id";
+        $this->query($query);
+        return $this->execute();
+    }
+
 }
