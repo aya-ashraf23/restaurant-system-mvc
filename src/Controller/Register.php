@@ -5,6 +5,7 @@ use Aslam\Test\View;
 use Aslam\Test\Model\User;
 use Aslam\Test\public\Request;
 use Aslam\Test\public\Session;
+use Aslam\Test\public\Validation;
 
 class Register {
     private $newUser;
@@ -17,12 +18,17 @@ class Register {
 
     public function handleRegister(){
         $userData = filter_input_array(INPUT_POST) ?: [];
-        $requiredFields = ['firstname', 'lastname', 'username', 'password'];
-        foreach ($requiredFields as $field) {
-            if (!isset($userData[$field]) || !is_string($userData[$field]) || trim($userData[$field]) === '') {
-                Session::setFlash('error', 'Please complete all required fields.');
-                Request::redirect('register/showRegister');
+        foreach ($userData as $field => $value) {
+            if (is_string($value) && $field !== 'password') {
+                $userData[$field] = trim($value);
             }
+        }
+
+        $requiredFields = ['firstname', 'lastname', 'username', 'password'];
+        $validationErrors = (new Validation())->validate($userData, $requiredFields);
+        if ($validationErrors) {
+            Session::setFlash('error', reset($validationErrors));
+            Request::redirect('register/showRegister');
         }
 
         $username = trim($userData['username']);
@@ -34,7 +40,7 @@ class Register {
         $hashed_password = password_hash($userData['password'], PASSWORD_BCRYPT);
         $user = [
             'firstname' => trim($userData['firstname']),
-            'middlename' => trim($userData['middlename']),
+            'middlename' => trim($userData['middlename'] ?? ''),
             'lastname' => trim($userData['lastname']),
             'username' => $username,
             'password' => $hashed_password,

@@ -43,7 +43,7 @@
         <p class="login-box-msg">Please enter your credentials</p>
         <form id="" action="<?php echo base_url; ?>login/handleLogin" method="post">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" name="username" autofocus placeholder="Username" required>
+            <input type="text" class="form-control" name="username" autofocus placeholder="Username" minlength="3" maxlength="30" pattern="[\p{L}\p{N}_-]{3,30}" title="Use 3-30 letters, numbers, underscores, or hyphens." required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -51,7 +51,7 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" name="password" placeholder="Password" required>
+            <input type="password" class="form-control" name="password" placeholder="Password" title="Emojis are not allowed in passwords." required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>

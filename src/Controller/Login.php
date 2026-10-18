@@ -4,6 +4,7 @@ namespace Aslam\Test\Controller;
 use Aslam\Test\Model\User;
 use Aslam\Test\public\Request;
 use Aslam\Test\public\Session;
+use Aslam\Test\public\Validation;
 use Aslam\Test\View;
 
 class Login {
@@ -17,6 +18,17 @@ class Login {
 
     public function handleLogin(){
         $credentials = filter_input_array(INPUT_POST) ?: [];
+        foreach ($credentials as $field => $value) {
+            if (is_string($value) && $field !== 'password') {
+                $credentials[$field] = trim($value);
+            }
+        }
+
+        if ((new Validation())->validateLogin($credentials)) {
+            Session::setFlash('error', 'Please enter a valid username and password.');
+            Request::redirect("login/showLogin");
+        }
+
         $checkedUser = $this->loggingUser->Login($credentials);
         if($checkedUser){
             $this->createUserSession($checkedUser);
