@@ -1,6 +1,6 @@
-# Restaurant system
+# Restaurant System
 
-This is a work-in-progress PHP/MySQL restaurant system. It contains initial features for account registration and login, menu/category management, and order and sales pages. Development is ongoing, so some features and setup details may change.
+A work-in-progress PHP/MySQL restaurant system. The current implementation includes account registration and login, menu and category listings, point-of-sale order entry, order history, and receipt printing. Development is ongoing, and features and setup details may change.
 
 ## Requirements
 
@@ -11,16 +11,33 @@ This is a work-in-progress PHP/MySQL restaurant system. It contains initial feat
 ## Local setup
 
 1. Clone the repository into your local web server's document root.
-2. From the project directory, install Composer's generated autoloader:
+2. From the project directory, install Composer dependencies and generate the autoloader:
 
    ```sh
    composer install
    ```
 
-3. Import [`database/ffos_db.sql`](database/ffos_db.sql) using phpMyAdmin or the MySQL command line.
-4. Update the database settings and `base_url` for your local setup. For XAMPP, the default database user is often `root` with an empty password; change these values if your MySQL server uses different credentials.
-5. Start Apache and MySQL, then open the URL configured as `base_url` in your browser.
+3. Create a local database named `ffos_db` and import [`database/ffos_db.sql`](database/ffos_db.sql) using phpMyAdmin or the MySQL command line.
+4. Create your local database configuration by copying [`src/config/database.example.php`](src/config/database.example.php):
+
+   ```bat
+   copy src\config\database.example.php src\config\database.php
+   ```
+
+   Edit `src/config/database.php` with your database host, username, password, and database name. This local file is ignored by Git; only the example configuration is intended to be shared.
+5. Update the `base_url` in [`src/public/index.php`](src/public/index.php) to match your local URL. With XAMPP, start Apache and MySQL, then open that URL in your browser.
 6. Register an account through the app to try the account flow.
+
+## Current features
+
+- **Account access:** Register and sign in with username and password. Registration validates names, usernames, and password requirements, checks for an existing username, and stores a password hash. Success and error messages are shown through flash notifications.
+- **Menu and category browsing:** View category and menu listings, status, and individual record details.
+- **Point of sale:** Build an order from available menu items, set quantities, review the total, enter the tendered amount, and submit the order.
+- **Order processing:** Submitted orders are associated with the signed-in user and receive a transaction code and queue number.
+- **Order history and receipts:** Browse saved orders, delete an order, and open a printable receipt showing transaction and payment details.
+- **Application shell:** A home page and navigation link to the current sales, order, category, and menu pages.
+
+The project is still in progress; links for reports, kitchen operations, and other legacy screens are not listed as completed features.
 
 
 ## Source acknowledgment

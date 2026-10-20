@@ -1,5 +1,5 @@
 # Local configuration and secrets
-/src/config.php
+/src/config/database.php
 .env
 .env.*
 !.env.example
